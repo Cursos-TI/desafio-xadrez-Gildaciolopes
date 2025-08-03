@@ -5,8 +5,10 @@ int main() {
     const int TORRE_MOVES   = 5;
     const int BISPO_MOVES   = 5;
     const int RAINHA_MOVES  = 8;
+    const int CAVALO_DOWN   = 2; // Duas casas para baixo
+    const int CAVALO_LEFT   = 1; // Uma casa para a esquerda
 
-    int i; // Contador genérico
+    int i, j, k; // Contadores genéricos
 
     // 1) Movimento da Torre: 5 casas para a direita usando 'for'
     printf("Movimento da Torre (for):\n");
@@ -34,6 +36,31 @@ int main() {
         printf("Esquerda\n");
         i++;
     } while (i < RAINHA_MOVES);
+
+    // Espaço em branco separando o Cavalo
+    printf("\n");
+
+    // 4) Movimento do Cavalo: simula o movimento em 'L' (2 para baixo, 1 para a esquerda)
+    // usando loops aninhados (um for e um while)
+    printf("Movimento do Cavalo (aninhado):\n");
+    
+    /*
+     * O Cavalo faz um movimento em L:
+     * - Duas casas para baixo (loop for)
+     * - Uma casa para a esquerda (loop while)
+     */
+    for (i = 0; i < 1; i++) {          // Loop para repetir o movimento (aqui uma vez)
+        // Parte vertical do 'L'
+        for (j = 0; j < CAVALO_DOWN; j++) {
+            printf("Baixo\n");
+        }
+        // Parte horizontal do 'L'
+        k = 0;
+        while (k < CAVALO_LEFT) {
+            printf("Esquerda\n");
+            k++;
+        }
+    }
 
     return 0;
 }
