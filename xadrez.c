@@ -1,65 +1,87 @@
 #include <stdio.h>
 
+// ----- FUNÇÕES RECURSIVAS ----- //
+
+/**
+ * Simula o movimento da Torre recursivamente.
+ * Cada chamada imprime "Direita" até moves chegar a zero.
+ */
+void torre_recursive(int moves) {
+    if (moves <= 0) return;
+    printf("Direita\n");
+    torre_recursive(moves - 1);
+}
+
+/**
+ * Simula o movimento da Rainha recursivamente.
+ * Cada chamada imprime "Esquerda" até moves chegar a zero.
+ */
+void rainha_recursive(int moves) {
+    if (moves <= 0) return;
+    printf("Esquerda\n");
+    rainha_recursive(moves - 1);
+}
+
+/**
+ * Simula o movimento do Bispo usando recursividade e loops aninhados.
+ * O loop externo repete o movimento vertical (1 casa "Cima"),
+ * o interno repete o horizontal (1 casa "Direita").
+ */
+void bispo_recursive(int moves) {
+    if (moves <= 0) return;
+    // Loop aninhado para representar uma casa na diagonal
+    for (int vert = 0; vert < 1; vert++) {
+        printf("Cima\n");
+        for (int horiz = 0; horiz < 1; horiz++) {
+            printf("Direita\n");
+        }
+    }
+    bispo_recursive(moves - 1);
+}
+
 int main() {
-    // Definição das constantes de movimento
+    // Constantes de movimento
     const int TORRE_MOVES   = 5;
     const int BISPO_MOVES   = 5;
     const int RAINHA_MOVES  = 8;
-    const int CAVALO_DOWN   = 2; // Duas casas para baixo
-    const int CAVALO_LEFT   = 1; // Uma casa para a esquerda
 
-    int i, j, k; // Contadores genéricos
-
-    // 1) Movimento da Torre: 5 casas para a direita usando 'for'
-    printf("Movimento da Torre (for):\n");
-    for (i = 0; i < TORRE_MOVES; i++) {
-        // Torre se move horizontalmente para a direita
-        printf("Direita\n");
-    }
-    printf("---\n");
-
-    // 2) Movimento do Bispo: 5 casas na diagonal superior-direita usando 'while'
-    printf("Movimento do Bispo (while):\n");
-    i = 0;
-    while (i < BISPO_MOVES) {
-        /* Bispo se move na diagonal: uma casa para cima e uma para a direita */
-        printf("Cima Direita\n");
-        i++;
-    }
-    printf("---\n");
-
-    // 3) Movimento da Rainha: 8 casas para a esquerda usando 'do-while'
-    printf("Movimento da Rainha (do-while):\n");
-    i = 0;
-    do {
-        // Rainha se move horizontalmente para a esquerda
-        printf("Esquerda\n");
-        i++;
-    } while (i < RAINHA_MOVES);
-
-    // Espaço em branco separando o Cavalo
+    // 1) Movimento da Torre (Recursivo)
+    printf("Movimento da Torre (recursivo):\n");
+    torre_recursive(TORRE_MOVES);
     printf("\n");
 
-    // 4) Movimento do Cavalo: simula o movimento em 'L' (2 para baixo, 1 para a esquerda)
-    // usando loops aninhados (um for e um while)
-    printf("Movimento do Cavalo (aninhado):\n");
+    // 2) Movimento do Bispo (Recursivo + Loops Aninhados)
+    printf("Movimento do Bispo (recursivo + loops aninhados):\n");
+    bispo_recursive(BISPO_MOVES);
+    printf("\n");
+
+    // 3) Movimento da Rainha (Recursivo)
+    printf("Movimento da Rainha (recursivo):\n");
+    rainha_recursive(RAINHA_MOVES);
+    printf("\n");
+
+   // 4) Movimento do Cavalo (Loops Aninhados Complexos)
+    //    Objetivo: 2 casas para cima, 1 casa para a direita, em "L".
+    printf("Movimento do Cavalo (loops complexos):\n");
     
-    /*
-     * O Cavalo faz um movimento em L:
-     * - Duas casas para baixo (loop for)
-     * - Uma casa para a esquerda (loop while)
-     */
-    for (i = 0; i < 1; i++) {          // Loop para repetir o movimento (aqui uma vez)
-        // Parte vertical do 'L'
-        for (j = 0; j < CAVALO_DOWN; j++) {
-            printf("Baixo\n");
+    // Variáveis de controle múltiplo
+    int a, b;
+    
+    // Loop externo controla as três etapas do "L"
+    for (a = 0, b = 0; a < 3; a++) {
+        // Primeiras duas iterações: move para cima
+        if (a < 2) {
+            printf("Cima\n");
+            continue; // volta para próxima iteração de 'a'
         }
-        // Parte horizontal do 'L'
-        k = 0;
-        while (k < CAVALO_LEFT) {
-            printf("Esquerda\n");
-            k++;
+        
+        // Na terceira iteração: inicia movimento horizontal
+        for (; b < 1; b++) {
+            printf("Direita\n");
+            break;    // sai deste loop interno após 1 passo
         }
+        // Após mover direita, pode usar break para sair do loop externo
+        break;
     }
 
     return 0;
